@@ -45,12 +45,22 @@ mod tests {
 
     #[test]
     fn for_word() {
-        let word_01: Word = one_bit_word(0);
+        let word_00: Word = one_bit_word(0);
         let word_15: Word = one_bit_word(BIT_WIDTH - 1);
-        assert_eq!(word_01[0], I);
-        assert_eq!(word_01[1], O);
-        assert_eq!(word_15[0], O);
-        assert_eq!(word_15[14], O);
-        assert_eq!(word_15[15], I);
+        for i in 1..BIT_WIDTH {
+            let word_00_val = word_00[i].clone();
+            let word_15_val = word_15[i].clone();
+            if i == 0 {
+                assert_eq!(word_00_val, I);
+            } else {
+                assert_eq!(word_00_val, O);
+            }
+
+            if i == BIT_WIDTH - 1 {
+                assert_eq!(word_15_val, I);
+            } else {
+                assert_eq!(word_15_val, O);
+            }
+        }
     }
 }
