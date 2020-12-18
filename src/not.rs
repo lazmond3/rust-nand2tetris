@@ -2,7 +2,7 @@ use crate::bit::Bit;
 use crate::bit::Bit::{I, O};
 use crate::nand::nand;
 
-fn not(a: Bit) -> Bit {
+pub fn not(a: Bit) -> Bit {
     nand(a.clone(), a)
 }
 
