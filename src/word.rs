@@ -6,6 +6,8 @@ use std::ops::{Index, IndexMut};
 
 use std::cmp::PartialEq;
 use std::convert::Infallible;
+use std::fmt::Display;
+use std::ops::Add;
 use std::slice::Iter;
 
 pub type InternalWord = [Bit; BIT_WIDTH];
@@ -32,6 +34,7 @@ impl Word {
         ar[index] = Bit::I;
         ar
     }
+
     pub fn convert_vec_to_word(a: Vec<Bit>) -> Word {
         if a.len() != BIT_WIDTH {
             panic!(format!(
@@ -78,6 +81,31 @@ impl Word {
         }
 
         Word::convert_vec_to_word(vec)
+    }
+
+    pub fn to_num(&self) -> usize {
+        let mut v: usize = 0;
+        for i in 0..BIT_WIDTH {
+            if (*self)[i] == Bit::I {
+                v = v + 1 * (1 << i)
+            }
+        }
+        v
+    }
+}
+
+// impl Display for Word {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         let mut st = String::from("");
+
+//         write!(f, "{}")
+//     }
+// }
+
+impl Add for Word {
+    type Output = Self;
+    fn add(self, other: Self) -> Self {
+        Default::default()
     }
 }
 
@@ -155,5 +183,11 @@ mod tests {
         let word_08: Word = Word::num_to_bit(8);
         let word_03_bit: Word = Word::bit_position(3);
         assert_eq!(word_08, word_03_bit);
+    }
+
+    #[test]
+    fn for_to_num() {
+        let word_03_bit: Word = Word::bit_position(3);
+        assert_eq!(word_03_bit.to_num(), 8);
     }
 }
