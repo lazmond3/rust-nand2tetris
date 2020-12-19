@@ -1,7 +1,6 @@
 use crate::bit::Bit;
 use crate::constant::BIT_WIDTH;
 use crate::not::not;
-use crate::util::convert_vec_to_word;
 use crate::word::Word;
 
 use std::convert::TryInto;
@@ -14,7 +13,7 @@ pub fn not_word(a: Word) -> Word {
         .map(|x| not((*x).clone()))
         .collect();
 
-    convert_vec_to_word(b)
+    Word::convert_vec_to_word(b)
 }
 
 #[cfg(test)]

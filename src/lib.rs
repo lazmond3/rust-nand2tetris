@@ -5,5 +5,4 @@ pub mod dmux;
 pub mod nand;
 pub mod not;
 pub mod not_word;
-pub mod util;
 pub mod word;

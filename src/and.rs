@@ -1,7 +1,6 @@
 use crate::bit::Bit;
 use crate::nand::nand;
 use crate::not::not;
-use crate::util::convert_vec_to_word;
 use crate::word::Word;
 
 fn and(a: Bit, b: Bit) -> Bit {
@@ -24,7 +23,7 @@ fn and_word(a: Word, b: Word) -> Word {
             }
         })
         .collect();
-    convert_vec_to_word(na)
+    Word::convert_vec_to_word(na)
 }
 
 #[cfg(test)]
