@@ -1,5 +1,5 @@
 use crate::bit::Bit;
-use crate::bit::Bit::{I, O};
+
 use crate::nand::nand;
 
 pub fn not(a: Bit) -> Bit {

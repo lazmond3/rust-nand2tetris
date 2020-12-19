@@ -1,6 +1,6 @@
 use crate::bit::Bit;
-use crate::nand::nand;
-use crate::not::not;
+
+
 
 pub fn dmux(a: Bit, b: Bit, sel: Bit) -> Bit {
     match sel {

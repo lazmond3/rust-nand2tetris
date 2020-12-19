@@ -1,9 +1,9 @@
-use crate::bit::Bit;
-use crate::constant::BIT_WIDTH;
+
+
 use crate::not::not;
 use crate::word::Word;
 
-use std::convert::TryInto;
+
 
 pub fn not_word(a: Word) -> Word {
     let b = a

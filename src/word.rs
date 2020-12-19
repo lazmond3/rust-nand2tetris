@@ -1,14 +1,10 @@
 use crate::bit::Bit;
 use crate::constant::{BIT_WIDTH, MAX_VALUE};
-use std::convert::{TryFrom, TryInto};
-use std::default::Default;
-use std::ops::{Index, IndexMut};
-
 use std::cmp::PartialEq;
-use std::convert::Infallible;
-use std::fmt::Display;
+use std::convert::TryInto;
+use std::default::Default;
 use std::ops::{Add, BitAnd};
-use std::slice::Iter;
+use std::ops::{Index, IndexMut};
 
 pub type InternalWord = [Bit; BIT_WIDTH];
 
