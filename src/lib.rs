@@ -1,6 +1,7 @@
 pub mod alu;
 pub mod and;
 pub mod bit;
+pub mod clock;
 pub mod constant;
 pub mod dmux;
 pub mod nand;
