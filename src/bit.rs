@@ -6,6 +6,15 @@ pub enum Bit {
     I,
 }
 
+impl Bit {
+    pub fn from_bool(it: bool) -> Self {
+        match it {
+            true => Bit::I,
+            false => Bit::O,
+        }
+    }
+}
+
 impl Default for Bit {
     fn default() -> Self {
         Bit::O

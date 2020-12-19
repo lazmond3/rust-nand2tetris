@@ -1,3 +1,4 @@
+pub mod alu;
 pub mod and;
 pub mod bit;
 pub mod constant;
