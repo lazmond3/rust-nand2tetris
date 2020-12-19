@@ -32,6 +32,20 @@ impl Word {
         ar[index] = Bit::I;
         ar
     }
+    pub fn convert_vec_to_word(a: Vec<Bit>) -> Word {
+        let boxed_slice = a.clone().into_boxed_slice();
+        let boxed_array: Box<InternalWord> = match boxed_slice.try_into() {
+            Ok(ba) => ba,
+            Err(_) => {
+                panic!(
+                    "Expected a Vec of length {} but it was {}.",
+                    BIT_WIDTH,
+                    a.len()
+                )
+            }
+        };
+        Word::new(*boxed_array)
+    }
 
     pub fn num_to_bit(num: usize) -> Word {
         if num <= MAX_VALUE {
@@ -118,5 +132,13 @@ mod tests {
                 assert_eq!(word_15_val, Bit::O);
             }
         }
+    }
+
+    #[test]
+    fn for_convert_vec_to_internal_word() {
+        let word_00: Word = Word::bit_position(0);
+        let vec = word_00.internal().to_vec();
+        let word_from_vec = Word::convert_vec_to_word(vec);
+        assert_eq!(word_00, word_from_vec);
     }
 }
