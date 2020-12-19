@@ -6,6 +6,7 @@ use std::ops::{Index, IndexMut};
 
 use std::cmp::PartialEq;
 use std::convert::Infallible;
+use std::slice::Iter;
 
 pub type InternalWord = [Bit; BIT_WIDTH];
 
@@ -18,6 +19,9 @@ impl Word {
     }
     pub fn new(a: InternalWord) -> Word {
         Word(a)
+    }
+    pub fn to_vec(&self) -> Vec<Bit> {
+        (*self).internal().to_vec()
     }
 }
 
