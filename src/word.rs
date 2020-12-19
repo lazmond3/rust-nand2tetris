@@ -23,12 +23,12 @@ impl Word {
 
 impl PartialEq for Word {
     fn eq(&self, other: &Self) -> bool {
-        !(*self)
+        (*self)
             .internal()
             .to_vec()
             .iter()
             .zip(other.internal().to_vec().iter())
-            .any(|(m, o)| *m != *o)
+            .all(|(m, o)| *m == *o)
     }
 }
 
