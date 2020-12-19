@@ -74,7 +74,7 @@ impl Word {
             } else {
                 vec.push(Bit::O)
             }
-            num_m = num_m << 1;
+            num_m = num_m >> 1;
         }
         while vec.len() != BIT_WIDTH {
             vec.push(Bit::O);
@@ -96,7 +96,8 @@ impl Word {
 
 // impl Display for Word {
 //     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         let mut st = String::from("");
+//         let mut v = vec!("");
+//         for i in 0..BIT_WIDTH
 
 //         write!(f, "{}")
 //     }
