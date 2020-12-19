@@ -2,14 +2,17 @@ use crate::constant::RAM_WORDS_NUM;
 use crate::word::Word;
 use std::ops::{Index, IndexMut};
 
-pub struct Ram([Word; RAM_WORDS_NUM]);
+pub type InternalRam = [Word; RAM_WORDS_NUM];
+pub struct Ram(InternalRam);
 
 impl Ram {
     pub fn new() -> Self {
         // Ram([Word::new_empty(); RAM_WORDS_NUM])
         Ram([Word::new_empty(); RAM_WORDS_NUM])
     }
-    // pub fn internal() -> Word {}
+    pub fn internal(&self) -> &InternalRam {
+        &(self.0)
+    }
 }
 
 impl Index<usize> for Ram {
