@@ -11,22 +11,22 @@ fn alu(
     functional_x: Bit, // f : when 0 -> add, when 1 -> and
     not_out_x: Bit,    // no : out -> !out)
 ) -> (Word, Bit, Bit) {
-    let n_a: Word = if (a_is_zero_x == Bit::I) {
+    let n_a: Word = if a_is_zero_x == Bit::I {
         Word::newEmpty()
-    } else if (not_a_x == Bit::I) {
+    } else if not_a_x == Bit::I {
         not_word(a)
     } else {
         a
     };
-    let n_b = if (b_is_zero_x == Bit::I) {
+    let n_b = if b_is_zero_x == Bit::I {
         Word::newEmpty()
-    } else if (not_b_x == Bit::I) {
+    } else if not_b_x == Bit::I {
         not_word(b)
     } else {
         b
     };
 
-    let mut res = if (functional_x == Bit::O) {
+    let mut res = if functional_x == Bit::O {
         n_a + n_b
     } else {
         n_a & n_b
