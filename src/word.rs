@@ -7,7 +7,7 @@ use std::ops::{Index, IndexMut};
 use std::cmp::PartialEq;
 use std::convert::Infallible;
 use std::fmt::Display;
-use std::ops::Add;
+use std::ops::{Add, BitAnd};
 use std::slice::Iter;
 
 pub type InternalWord = [Bit; BIT_WIDTH];
@@ -161,6 +161,30 @@ impl Add for Word {
     }
 }
 
+impl BitAnd for Word {
+    type Output = Self;
+
+    // rhs is the "right-hand side" of the expression `a & b`
+    fn bitand(self, rhs: Self) -> Self::Output {
+        let na = self
+            .to_vec()
+            .iter()
+            .zip(rhs.to_vec().iter())
+            .map(|(va, vb)| match *va {
+                Bit::O => Bit::O,
+                Bit::I => {
+                    if *vb == Bit::I {
+                        Bit::I
+                    } else {
+                        Bit::O
+                    }
+                }
+            })
+            .collect();
+        Word::convert_vec_to_word(na)
+    }
+}
+
 impl PartialEq for Word {
     fn eq(&self, other: &Self) -> bool {
         (*self)
@@ -256,5 +280,12 @@ mod tests {
             Word::num_to_bit(5) + Word::num_to_bit(5),
             Word::num_to_bit(10)
         );
+    }
+
+    #[test]
+    fn for_and_word() {
+        let word05 = Word::num_to_bit(5);
+        let word01 = Word::num_to_bit(1);
+        assert_eq!(word01 & word05, Word::bit_position(0));
     }
 }
