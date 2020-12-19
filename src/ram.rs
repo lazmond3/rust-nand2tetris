@@ -13,6 +13,9 @@ impl Ram {
     pub fn internal(&self) -> &InternalRam {
         &(self.0)
     }
+    pub fn to_vec(&self) -> Vec<Word> {
+        (*self).internal().to_vec()
+    }
 }
 
 impl Index<usize> for Ram {
