@@ -21,3 +21,29 @@ impl Dff {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn for_dff() {
+        let mut dff = Dff::new();
+        let mut clock = Clock::new();
+        // before clock
+        assert_eq!(dff.state_past, Bit::O);
+        assert_eq!(dff.state_next, Bit::O);
+        // clock up
+        clock.next();
+        dff.input(Bit::I, &clock);
+        // clock
+        assert_eq!(dff.state_past, Bit::O);
+        assert_eq!(dff.state_next, Bit::I);
+        // clock down & up
+        clock.next();
+        clock.next();
+        dff.input(Bit::O, &clock);
+        assert_eq!(dff.state_past, Bit::I);
+        assert_eq!(dff.state_next, Bit::O);
+    }
+}
