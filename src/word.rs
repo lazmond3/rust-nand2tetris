@@ -106,7 +106,12 @@ impl Word {
 impl Add for Word {
     type Output = Self;
     fn add(self, other: Self) -> Self {
-        Default::default()
+        let added = self.to_num() + other.to_num();
+        if added >= MAX_VALUE {
+            Word::num_to_bit(MAX_VALUE)
+        } else {
+            Word::num_to_bit(added)
+        }
     }
 }
 
@@ -197,5 +202,13 @@ mod tests {
         assert_eq!(1 << 1, 2);
         assert_eq!(1 << 2, 4);
         assert_eq!(4 >> 1, 2);
+    }
+
+    #[test]
+    fn for_add_test() {
+        assert_eq!(
+            Word::num_to_bit(5) + Word::num_to_bit(5),
+            Word::num_to_bit(10)
+        );
     }
 }
