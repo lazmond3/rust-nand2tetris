@@ -103,15 +103,46 @@ impl Word {
 //     }
 // }
 
+fn easy_add(one: Word, other: Word) -> Word {
+    let added = one.to_num() + other.to_num();
+    if added >= MAX_VALUE {
+        Word::num_to_bit(MAX_VALUE)
+    } else {
+        Word::num_to_bit(added)
+    }
+}
+
+fn difficult_add(one: Word, other: Word) -> Word {
+    let mut answer_word: Word = Default::default();
+    let mut carry: bool = false;
+    for i in 0..BIT_WIDTH {
+        if !carry {
+            // 繰り上がりがない
+            if one[i] == other[i] {
+                carry = one[i] == Bit::I;
+                answer_word[i] = Bit::O;
+            } else {
+                answer_word[i] = Bit::I;
+            }
+        } else {
+            // 繰り上がりがある
+            if one[i] != other[i] {
+                // 繰り上がり継続
+                answer_word[i] = Bit::O;
+            } else {
+                carry = one[i] == Bit::I;
+                answer_word[i] = Bit::I;
+            }
+        }
+    }
+    answer_word
+}
+
 impl Add for Word {
     type Output = Self;
     fn add(self, other: Self) -> Self {
-        let added = self.to_num() + other.to_num();
-        if added >= MAX_VALUE {
-            Word::num_to_bit(MAX_VALUE)
-        } else {
-            Word::num_to_bit(added)
-        }
+        difficult_add(self, other)
+        // easy_add(self, other)
     }
 }
 
