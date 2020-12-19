@@ -1,5 +1,5 @@
 use crate::bit::Bit;
-use crate::constant::BIT_WIDTH;
+use crate::constant::{BIT_WIDTH, MAX_VALUE};
 use std::convert::{TryFrom, TryInto};
 use std::default::Default;
 use std::ops::{Index, IndexMut};
@@ -31,6 +31,31 @@ impl Word {
         let mut ar: Word = Default::default();
         ar[index] = Bit::I;
         ar
+    }
+
+    pub fn num_to_bit(num: usize) -> Word {
+        if num <= MAX_VALUE {
+            panic!(format!(
+                "num_to_bit conversion failed: {} is out of range.",
+                num
+            ))
+        }
+        let mut vec: Vec<Bit> = Vec::new();
+        let mut num_m = num.clone();
+        while num_m != 0 {
+            let amari = num_m & 1;
+            if amari == 1 {
+                vec.push(Bit::I)
+            } else {
+                vec.push(Bit::O)
+            }
+            num_m = num_m << 1;
+        }
+        while vec.len() != BIT_WIDTH {
+            vec.push(Bit::O);
+        }
+
+        Default::default()
     }
 }
 
