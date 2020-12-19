@@ -7,24 +7,6 @@ use std::default::Default;
 use std::convert::{TryFrom, TryInto};
 use std::result::Result;
 
-// impl TryInto<InternalWord> for Vec<Bit>
-
-// impl TryFrom<Vec<Bit>> for InternalWord {
-//     // type Error = Err<string>;
-//     type Error = str;
-//     fn try_from(self: Vec<Bit>) -> Result<Self, Self::Error> {
-//         if BIT_WIDTH <= self.len() {
-//             format!("index fail: {} is out of range.", self.len())
-//         } else {
-//             let mut a: InternalWord = Default::default();
-//             for (pos, v) in self.iter().enumerate() {
-//                 a[pos] = v.clone()
-//             }
-//             Ok(a)
-//         }
-//     }
-// }
-
 pub fn convert_vec_to_internal_word(a: Vec<Bit>) -> InternalWord {
     let boxed_slice = a.clone().into_boxed_slice();
     let boxed_array: Box<InternalWord> = match boxed_slice.try_into() {
