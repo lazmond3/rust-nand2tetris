@@ -12,14 +12,14 @@ fn alu(
     not_out_x: Bit,    // no : out -> !out)
 ) -> (Word, Bit, Bit) {
     let n_a: Word = if a_is_zero_x == Bit::I {
-        Word::newEmpty()
+        Word::new_empty()
     } else if not_a_x == Bit::I {
         not_word(a)
     } else {
         a
     };
     let n_b = if b_is_zero_x == Bit::I {
-        Word::newEmpty()
+        Word::new_empty()
     } else if not_b_x == Bit::I {
         not_word(b)
     } else {
@@ -38,7 +38,7 @@ fn alu(
         res
     };
 
-    let zr = Bit::from_bool(res == Word::newEmpty());
+    let zr = Bit::from_bool(res == Word::new_empty());
     let ng = Bit::O;
 
     (res, zr, ng)

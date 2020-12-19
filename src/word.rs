@@ -18,7 +18,7 @@ impl Word {
     pub fn new(a: InternalWord) -> Word {
         Word(a)
     }
-    pub fn newEmpty() -> Self {
+    pub fn new_empty() -> Self {
         Default::default()
     }
     pub fn to_vec(&self) -> Vec<Bit> {
