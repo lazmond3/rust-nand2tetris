@@ -1,9 +1,5 @@
-mod bit;
-mod constant;
-mod word;
-
-use crate::bit::Bit;
-use crate::word::Word;
+use nand2tetris::bit::Bit;
+use nand2tetris::word::Word;
 
 fn main() {
     println!("Hello, world! bit I: {}", Bit::I);
