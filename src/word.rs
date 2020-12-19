@@ -169,15 +169,9 @@ impl BitAnd for Word {
             .to_vec()
             .iter()
             .zip(rhs.to_vec().iter())
-            .map(|(va, vb)| match *va {
-                Bit::O => Bit::O,
-                Bit::I => {
-                    if *vb == Bit::I {
-                        Bit::I
-                    } else {
-                        Bit::O
-                    }
-                }
+            .map(|(va, vb)| match ((*va).clone(), (*vb).clone()) {
+                (Bit::I, Bit::I) => Bit::I,
+                _ => Bit::O,
             })
             .collect();
         Word::convert_vec_to_word(na)
