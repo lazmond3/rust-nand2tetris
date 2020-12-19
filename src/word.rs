@@ -56,7 +56,7 @@ impl Word {
     }
 
     pub fn num_to_bit(num: usize) -> Word {
-        if num <= MAX_VALUE {
+        if num >= MAX_VALUE {
             panic!(format!(
                 "num_to_bit conversion failed: {} is out of range.",
                 num
@@ -148,5 +148,12 @@ mod tests {
         let vec = word_00.internal().to_vec();
         let word_from_vec = Word::convert_vec_to_word(vec);
         assert_eq!(word_00, word_from_vec);
+    }
+
+    #[test]
+    fn for_num_to_bit() {
+        let word_08: Word = Word::num_to_bit(8);
+        let word_03_bit: Word = Word::bit_position(3);
+        assert_eq!(word_08, word_03_bit);
     }
 }
