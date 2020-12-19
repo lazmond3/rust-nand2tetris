@@ -1,11 +1,36 @@
 use crate::bit::Bit;
+use crate::constant::BIT_WIDTH;
+use std::convert::{TryFrom, TryInto};
 use std::default::Default;
 use std::ops::{Index, IndexMut};
 
-pub const BIT_WIDTH: usize = 16;
+use std::cmp::PartialEq;
+use std::convert::Infallible;
 
-#[derive(Default)]
-pub struct Word([Bit; BIT_WIDTH]);
+pub type InternalWord = [Bit; BIT_WIDTH];
+
+#[derive(Default, Debug, Clone)]
+pub struct Word(InternalWord);
+
+impl Word {
+    pub fn internal(&self) -> InternalWord {
+        (*self).clone().0
+    }
+    pub fn new(a: InternalWord) -> Word {
+        Word(a)
+    }
+}
+
+impl PartialEq for Word {
+    fn eq(&self, other: &Self) -> bool {
+        !(*self)
+            .internal()
+            .to_vec()
+            .iter()
+            .zip(other.internal().to_vec().iter())
+            .any(|(m, o)| *m != *o)
+    }
+}
 
 impl Index<usize> for Word {
     type Output = Bit;
