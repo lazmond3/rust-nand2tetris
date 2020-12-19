@@ -191,4 +191,11 @@ mod tests {
         let word_03_bit: Word = Word::bit_position(3);
         assert_eq!(word_03_bit.to_num(), 8);
     }
+
+    #[test]
+    fn for_bit_shift_direction() {
+        assert_eq!(1 << 1, 2);
+        assert_eq!(1 << 2, 4);
+        assert_eq!(4 >> 1, 2);
+    }
 }
