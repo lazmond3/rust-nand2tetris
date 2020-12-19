@@ -33,6 +33,14 @@ impl Word {
         ar
     }
     pub fn convert_vec_to_word(a: Vec<Bit>) -> Word {
+        if a.len() != BIT_WIDTH {
+            panic!(format!(
+                "range error: vector range:{} is mismatched to BIT_WIDTH:{}.",
+                a.len(),
+                BIT_WIDTH
+            ))
+        }
+
         let boxed_slice = a.clone().into_boxed_slice();
         let boxed_array: Box<InternalWord> = match boxed_slice.try_into() {
             Ok(ba) => ba,
@@ -69,7 +77,7 @@ impl Word {
             vec.push(Bit::O);
         }
 
-        Default::default()
+        Word::convert_vec_to_word(vec)
     }
 }
 
