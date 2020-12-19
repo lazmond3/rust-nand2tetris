@@ -116,24 +116,39 @@ fn difficult_add(one: Word, other: Word) -> Word {
     let mut answer_word: Word = Default::default();
     let mut carry: bool = false;
     for i in 0..BIT_WIDTH {
-        if !carry {
-            // 繰り上がりがない
-            if one[i] == other[i] {
-                carry = one[i] == Bit::I;
-                answer_word[i] = Bit::O;
-            } else {
-                answer_word[i] = Bit::I;
-            }
-        } else {
-            // 繰り上がりがある
-            if one[i] != other[i] {
-                // 繰り上がり継続
-                answer_word[i] = Bit::O;
-            } else {
+        match (carry, one[i] == other[i]) {
+            (true, true) => {
                 carry = one[i] == Bit::I;
                 answer_word[i] = Bit::I;
             }
+            (true, false) => {
+                answer_word[i] = Bit::O;
+            }
+            (false, true) => {
+                carry = one[i] == Bit::I;
+                answer_word[i] = Bit::O;
+            }
+            (false, false) => answer_word[i] = Bit::I,
         }
+
+        // if !carry {
+        //     // 繰り上がりがない
+        //     if one[i] == other[i] {
+        //         carry = one[i] == Bit::I;
+        //         answer_word[i] = Bit::O;
+        //     } else {
+        //         answer_word[i] = Bit::I;
+        //     }
+        // } else {
+        //     // 繰り上がりがある
+        //     if one[i] != other[i] {
+        //         // 繰り上がり継続
+        //         answer_word[i] = Bit::O;
+        //     } else {
+        //         carry = one[i] == Bit::I;
+        //         answer_word[i] = Bit::I;
+        //     }
+        // }
     }
     answer_word
 }
