@@ -69,6 +69,11 @@ mod tests {
     use super::{Bit, BIT_WIDTH};
 
     #[test]
+    fn for_equality() {
+        assert_eq!(one_bit_word(1), one_bit_word(1));
+    }
+
+    #[test]
     fn for_word() {
         let word_00: Word = one_bit_word(0);
         let word_15: Word = one_bit_word(BIT_WIDTH - 1);
