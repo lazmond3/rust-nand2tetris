@@ -3,6 +3,7 @@ pub mod and;
 pub mod bit;
 pub mod clock;
 pub mod constant;
+pub mod dff;
 pub mod dmux;
 pub mod nand;
 pub mod not;
