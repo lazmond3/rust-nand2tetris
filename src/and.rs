@@ -39,7 +39,10 @@ mod tests {
         assert_eq!(and(I, I), I);
     }
 
-    fn for_nand() {
-        let word00 = Word::bit_position(5);
+    #[test]
+    fn for_and_word() {
+        let word05 = Word::num_to_bit(5);
+        let word01 = Word::num_to_bit(1);
+        assert_eq!(and_word(word01, word05), Word::bit_position(0));
     }
 }
