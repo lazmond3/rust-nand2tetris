@@ -23,6 +23,15 @@ impl Word {
     pub fn to_vec(&self) -> Vec<Bit> {
         (*self).internal().to_vec()
     }
+
+    pub fn bit_position(index: usize) -> Word {
+        if (BIT_WIDTH - 1) < index {
+            panic!(format!("index fail: {} is out of range.", index))
+        }
+        let mut ar: Word = Default::default();
+        ar[index] = Bit::I;
+        ar
+    }
 }
 
 impl PartialEq for Word {
@@ -56,44 +65,32 @@ impl IndexMut<usize> for Word {
     }
 }
 
-pub fn one_bit_word(index: usize) -> Word {
-    if (BIT_WIDTH - 1) < index {
-        panic!(format!("index fail: {} is out of range.", index))
-    }
-    let mut ar: Word = Default::default();
-    ar[index] = Bit::I;
-    ar
-}
-
 #[cfg(test)]
 mod tests {
-    use super::one_bit_word;
-    use super::Bit::{I, O};
-    use super::Word;
-    use super::{Bit, BIT_WIDTH};
+    use super::*;
 
     #[test]
     fn for_equality() {
-        assert_eq!(one_bit_word(1), one_bit_word(1));
+        assert_eq!(Word::bit_position(1), Word::bit_position(1));
     }
 
     #[test]
     fn for_word() {
-        let word_00: Word = one_bit_word(0);
-        let word_15: Word = one_bit_word(BIT_WIDTH - 1);
+        let word_00: Word = Word::bit_position(0);
+        let word_15: Word = Word::bit_position(BIT_WIDTH - 1);
         for i in 1..BIT_WIDTH {
             let word_00_val = word_00[i].clone();
             let word_15_val = word_15[i].clone();
             if i == 0 {
-                assert_eq!(word_00_val, I);
+                assert_eq!(word_00_val, Bit::I);
             } else {
-                assert_eq!(word_00_val, O);
+                assert_eq!(word_00_val, Bit::O);
             }
 
             if i == BIT_WIDTH - 1 {
-                assert_eq!(word_15_val, I);
+                assert_eq!(word_15_val, Bit::I);
             } else {
-                assert_eq!(word_15_val, O);
+                assert_eq!(word_15_val, Bit::O);
             }
         }
     }

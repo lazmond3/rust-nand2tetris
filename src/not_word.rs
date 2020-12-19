@@ -2,7 +2,7 @@ use crate::bit::Bit;
 use crate::constant::BIT_WIDTH;
 use crate::not::not;
 use crate::util::convert_vec_to_word;
-use crate::word::{one_bit_word, Word};
+use crate::word::Word;
 
 use std::convert::TryInto;
 
@@ -23,7 +23,7 @@ mod tests {
 
     #[test]
     fn for_not_word() {
-        let word_00: Word = one_bit_word(0);
+        let word_00: Word = Word::bit_position(0);
         let not_word_00: Word = not_word(word_00.clone());
 
         assert_eq!(

@@ -1,7 +1,7 @@
 use crate::bit::Bit;
 use crate::constant::BIT_WIDTH;
 use crate::not::not;
-use crate::word::{one_bit_word, InternalWord, Word};
+use crate::word::{InternalWord, Word};
 use std::default::Default;
 
 use std::convert::{TryFrom, TryInto};
@@ -48,7 +48,7 @@ mod tests {
 
     #[test]
     fn for_convert_vec_to_internal_word() {
-        let word_00: Word = one_bit_word(0);
+        let word_00: Word = Word::bit_position(0);
         let vec = word_00.internal().to_vec();
         let word_from_vec = convert_vec_to_word(vec);
 
