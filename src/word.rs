@@ -8,8 +8,14 @@ use std::ops::{Index, IndexMut};
 
 pub type InternalWord = [Bit; BIT_WIDTH];
 
-#[derive(Default, Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct Word(InternalWord);
+
+impl Default for Word {
+    fn default() -> Self {
+        Word::new_empty()
+    }
+}
 
 impl Word {
     pub fn internal(&self) -> InternalWord {

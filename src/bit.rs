@@ -1,6 +1,6 @@
 use std::default::Default;
 use std::fmt;
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Bit {
     O,
     I,
