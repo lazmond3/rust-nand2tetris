@@ -20,14 +20,9 @@ impl Rom {
 
         let file = File::open(file_name.clone()).expect(&format!("Fail to open {}", file_name));
         let mut reader = BufReader::new(file);
-        // let lines = reader.lines();
         for line in reader.lines() {
             println!("line: {} ", line.unwrap());
         }
-        // for line_result in .lines {
-        //     let line = line_result.expect("file reading error");
-        //     println!("line: {}", line);
-        // }
     }
 }
 
