@@ -69,7 +69,31 @@ mod tests {
         println!("print_test v:  my_string &String is &str?: {}", &my_string)
     }
 
+    // read test
+
     #[test]
+    /*
+        hello3
+        hello3
+        hello3
+        he
+    */
+    fn read_me_test() {
+        // buffer read
+        readme("sample.txt")
+    }
+
+    #[test]
+    /*
+        line : hello3
+        line : hello3
+        line : hello3
+        line : hello3
+        line : hello3
+        line : hello3
+        line :
+        test rom::tests::read_test ... ok
+    */
     fn read_test() {
         let lines = read_lines("sample.txt").expect(&format!("failed to give lines."));
         for line in lines {
