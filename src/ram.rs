@@ -18,7 +18,7 @@ impl Ram {
     }
     pub fn one_line_word(pos: usize, a: Word) -> Self {
         let mut v = Ram::new().internal().clone();
-        if pos != RAM_WORDS_NUM {
+        if RAM_WORDS_NUM <= pos {
             panic!(format!(
                 "range error: vector range:{} is mismatched to RAM_WORDS_NUM:{}.",
                 pos, RAM_WORDS_NUM
@@ -77,6 +77,13 @@ mod tests {
     fn for_ram() {
         let ram = Ram::new();
         assert_eq!(ram[0], Word::new_empty());
+    }
+
+    #[test]
+    fn for_one_line_word() {
+        let pos: usize = 100;
+        let ram = Ram::one_line_word(pos, Word::bit_position(0));
+        assert_eq!(ram[pos], Word::bit_position(0));
     }
 
     // todo: vec <-> array のテスト
