@@ -16,6 +16,18 @@ impl Ram {
     pub fn to_vec(&self) -> Vec<Word> {
         (*self).internal().to_vec()
     }
+    pub fn one_line_word(pos: usize, a: Word) -> Self {
+        let mut v = Ram::new().internal().clone();
+        if pos != RAM_WORDS_NUM {
+            panic!(format!(
+                "range error: vector range:{} is mismatched to RAM_WORDS_NUM:{}.",
+                pos, RAM_WORDS_NUM
+            ))
+        }
+        v[pos] = a;
+        Ram(v)
+    }
+
     pub fn from_vec_word(a: Vec<Word>) -> Self {
         if a.len() != RAM_WORDS_NUM {
             panic!(format!(
@@ -66,4 +78,7 @@ mod tests {
         let ram = Ram::new();
         assert_eq!(ram[0], Word::new_empty());
     }
+
+    // todo: vec <-> array のテスト
+    // todo: ファイルから読み込みする関数。
 }
