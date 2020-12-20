@@ -53,11 +53,14 @@ where
 mod tests {
     use super::*;
 
+    // load test
     #[test]
     fn for_rom_load() {
         let mut a = Rom::new();
         a.load("sample.txt")
     }
+
+    // format test
     #[test]
     fn format_test() {
         let file_name = "sample.txt";
