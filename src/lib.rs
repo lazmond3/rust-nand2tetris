@@ -9,4 +9,6 @@ pub mod nand;
 pub mod not;
 pub mod not_word;
 pub mod ram;
+pub mod rom;
+pub mod sample;
 pub mod word;
