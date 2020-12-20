@@ -4,6 +4,8 @@ use std::convert::TryInto;
 use std::ops::{Index, IndexMut};
 
 pub type InternalRam = [Word; RAM_WORDS_NUM];
+
+#[derive(Clone, Copy)]
 pub struct Ram(InternalRam);
 
 impl Ram {
