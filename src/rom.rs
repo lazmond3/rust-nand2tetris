@@ -2,7 +2,7 @@ use crate::constant::ROM_RAM_SIZE;
 use crate::ram::Ram;
 use std::fs::File;
 use std::io::Read;
-use std::io::{self, BufRead, BufReader};
+use std::io::{BufRead, BufReader};
 // use std::path::Path;
 
 struct Rom {
