@@ -8,7 +8,7 @@ pub mod dmux;
 pub mod nand;
 pub mod not;
 pub mod not_word;
+mod ownership_test;
 pub mod ram;
 pub mod rom;
-pub mod sample;
 pub mod word;
