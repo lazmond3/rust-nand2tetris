@@ -87,5 +87,12 @@ mod tests {
     }
 
     // todo: vec <-> array のテスト
-    // todo: ファイルから読み込みする関数。
+    #[test]
+    fn for_vec_array() {
+        let ram = Ram::one_line_word(0, Word::bit_position(0));
+        let vec = ram.to_vec();
+        assert_eq!(vec[0], Word::bit_position(0));
+        let to_ram = Ram::from_vec_word(vec);
+        assert_eq!(to_ram[0], Word::bit_position(0));
+    }
 }
