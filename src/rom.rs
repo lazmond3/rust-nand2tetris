@@ -15,9 +15,6 @@ impl Rom {
         Rom { rams: ram_internal }
     }
     pub fn load(&mut self, file_name: &str) {
-        // https://qiita.com/garkimasera/items/f39d2900f20c90d13259
-        // expectは、値がSomeのときは　値を取り出し、そうではないときはpanic する。
-
         let file = File::open(file_name.clone()).expect(&format!("Fail to open {}", file_name));
         let mut reader = BufReader::new(file);
         for line in reader.lines() {
