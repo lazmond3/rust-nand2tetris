@@ -15,6 +15,9 @@ fn say(u: usize) {
 fn say_fancy(u: FancyBox) {
     println!("usize: {}", u);
 }
+fn say_mut_fancy(u: &FancyBox) {
+    println!("usize: {}", *u);
+}
 
 #[cfg(test)]
 mod tests {
@@ -34,5 +37,13 @@ mod tests {
         say_fancy(v.clone());
         say_fancy(v.clone());
         say_fancy(v);
+    }
+    #[test]
+    fn for_move_say_mut_fancy() {
+        let v: FancyBox = FancyBox(100);
+        // copy トレイトがないと、move されるのでerrorになる
+        say_mut_fancy(&v);
+        say_mut_fancy(&v);
+        say_mut_fancy(&v);
     }
 }
