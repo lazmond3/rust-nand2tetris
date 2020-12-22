@@ -5,12 +5,19 @@ use std::ops::{Index, IndexMut};
 
 pub type InternalRam = [Word; RAM_WORDS_NUM];
 
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub struct Ram(InternalRam);
+
+impl Default for Ram {
+    fn default() -> Self {
+        Ram([Word::new_empty(); RAM_WORDS_NUM])
+    }
+}
 
 impl Ram {
     pub fn new() -> Self {
-        Ram([Word::new_empty(); RAM_WORDS_NUM])
+        // Ram([Word::new_empty(); RAM_WORDS_NUM])
+        Default::default()
     }
     pub fn internal(&self) -> &InternalRam {
         &(self.0)
