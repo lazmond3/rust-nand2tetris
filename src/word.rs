@@ -5,6 +5,8 @@ use std::convert::TryInto;
 use std::default::Default;
 use std::ops::{Add, BitAnd};
 use std::ops::{Index, IndexMut};
+use std::str::Chars;
+use std::string::String;
 
 pub type InternalWord = [Bit; BIT_WIDTH];
 
@@ -23,6 +25,16 @@ impl Word {
     }
     pub fn to_vec(&self) -> Vec<Bit> {
         (*self).internal().to_vec()
+    }
+    pub fn from_str(line: &String) -> Word {
+        let bits = line
+            .chars()
+            .map(|c| match c {
+                '0' => Bit::O,
+                '1' => Bit::I,
+            })
+            .collect::<Vec<Bit>>();
+        Word::convert_vec_to_word(bits)
     }
 
     pub fn bit_position(index: usize) -> Word {
