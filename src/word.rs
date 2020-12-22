@@ -32,6 +32,7 @@ impl Word {
             .map(|c| match c {
                 '0' => Bit::O,
                 '1' => Bit::I,
+                _ => panic!(format!("cannot convert to Bit from : {}", c)),
             })
             .collect::<Vec<Bit>>();
         Word::convert_vec_to_word(bits)
@@ -223,6 +224,7 @@ impl IndexMut<usize> for Word {
 
 #[cfg(test)]
 mod tests {
+    use super::Bit::{I, O};
     use super::*;
 
     #[test]
@@ -292,5 +294,13 @@ mod tests {
         let word05 = Word::num_to_bit(5);
         let word01 = Word::num_to_bit(1);
         assert_eq!(word01 & word05, Word::bit_position(0));
+    }
+
+    #[test]
+    fn from_string() {
+        let mstr = String::from("0001010111110010");
+        let word = Word::from_str(&mstr);
+        let answer_vec = vec![O, O, O, I, O, I, O, I, I, I, I, I, O, O, I, O];
+        assert_eq!(word, Word::convert_vec_to_word(answer_vec))
     }
 }
