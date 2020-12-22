@@ -26,7 +26,7 @@ impl Word {
     pub fn to_vec(&self) -> Vec<Bit> {
         (*self).internal().to_vec()
     }
-    pub fn from_str(line: &String) -> Word {
+    pub fn from_str(line: &String) -> Result<Word, String> {
         let bits = line
             .chars()
             .map(|c| match c {
@@ -35,7 +35,7 @@ impl Word {
                 _ => panic!(format!("cannot convert to Bit from : {}", c)),
             })
             .collect::<Vec<Bit>>();
-        Word::convert_vec_to_word(bits)
+        Ok(Word::convert_vec_to_word(bits))
     }
 
     pub fn bit_position(index: usize) -> Word {
@@ -299,7 +299,16 @@ mod tests {
     #[test]
     fn from_string() {
         let mstr = String::from("0001010111110010");
-        let word = Word::from_str(&mstr);
+        let word = match Word::from_str(&mstr) {
+            Ok(v) => v,
+            Err(err) => {
+                panic!(format!(
+                    "failed to convert from str: {}, err: {}",
+                    mstr, err
+                ))
+            }
+        };
+
         let answer_vec = vec![O, O, O, I, O, I, O, I, I, I, I, I, O, O, I, O];
         assert_eq!(word, Word::convert_vec_to_word(answer_vec))
     }
