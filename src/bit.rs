@@ -13,6 +13,12 @@ impl Bit {
             false => Bit::O,
         }
     }
+    pub fn to_string(&self) -> String {
+        match *self {
+            Bit::O => "O",
+            Bit::I => "I",
+        }
+    }
 }
 
 impl Default for Bit {
