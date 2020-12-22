@@ -1,5 +1,6 @@
 use crate::constant::RAM_WORDS_NUM;
 use crate::word::Word;
+use std::cmp::PartialEq;
 use std::convert::TryInto;
 use std::fs::File;
 use std::io::Read;
@@ -8,12 +9,23 @@ use std::ops::{Index, IndexMut};
 
 pub type InternalRam = [Word; RAM_WORDS_NUM];
 
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 pub struct Ram(InternalRam);
 
 impl Default for Ram {
     fn default() -> Self {
         Ram([Word::new_empty(); RAM_WORDS_NUM])
+    }
+}
+
+impl PartialEq for Ram {
+    fn eq(&self, other: &Self) -> bool {
+        (*self)
+            .internal()
+            .to_vec()
+            .iter()
+            .zip(other.internal().to_vec().iter())
+            .all(|(m, o)| *m == *o)
     }
 }
 
@@ -47,13 +59,17 @@ impl Ram {
         for line in reader.lines() {
             let un = line.unwrap();
             println!("line: {} ", un.clone());
-            // TODO result にする？
-            let word = Word::from_str(&un);
-            word_vec.push(word)
+            let word = match Word::from_str(&un) {
+                Ok(w) => w,
+                Err(v) => panic!(format!(
+                    "failed to load file: {}, due to : {}",
+                    file_name, v
+                )),
+            };
+            word_vec.push(word);
         }
-        let mut rom_index = 0;
-        while !word_vec.is_empty() {
-            let w = word_vec.pop();
+        for (i, &word) in word_vec.iter().enumerate() {
+            (*self)[i] = word;
         }
     }
 
@@ -123,5 +139,29 @@ mod tests {
         assert_eq!(vec[0], Word::bit_position(0));
         let to_ram = Ram::from_vec_word(vec);
         assert_eq!(to_ram[0], Word::bit_position(0));
+    }
+
+    #[test]
+    fn load_test() {
+        let mut answer_ram: Ram = Default::default();
+        let mut test_ram: Ram = Default::default();
+        let v = vec![
+            Word::_from_str(&String::from("1000110101011000")),
+            Word::_from_str(&String::from("1011100001101111")),
+            Word::_from_str(&String::from("0010100111011110")),
+            Word::_from_str(&String::from("0011011001011111")),
+            Word::_from_str(&String::from("0001011011110010")),
+            Word::_from_str(&String::from("0100010110100111")),
+            Word::_from_str(&String::from("0110110101010110")),
+            Word::_from_str(&String::from("1110001001000110")),
+            Word::_from_str(&String::from("1001000000101010")),
+            Word::_from_str(&String::from("0111110001100110")),
+        ];
+        v.iter().enumerate().for_each(|(i, &w)| {
+            answer_ram[i] = w;
+        });
+
+        test_ram.load("rom_data.txt");
+        assert_eq!(test_ram, answer_ram);
     }
 }
