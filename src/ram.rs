@@ -5,7 +5,7 @@ use std::ops::{Index, IndexMut};
 
 pub type InternalRam = [Word; RAM_WORDS_NUM];
 
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct Ram(InternalRam);
 
 impl Default for Ram {
