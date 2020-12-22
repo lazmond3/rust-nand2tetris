@@ -4,11 +4,11 @@ use std::char;
 use std::cmp::PartialEq;
 use std::convert::TryInto;
 use std::default::Default;
+use std::fmt;
 use std::ops::{Add, BitAnd};
 use std::ops::{Index, IndexMut};
 use std::str::Chars;
 use std::string::String;
-use std::fmt;
 
 pub type InternalWord = [Bit; BIT_WIDTH];
 
@@ -24,7 +24,11 @@ impl fmt::Display for Word {
 
 impl Word {
     pub fn to_string(&self) -> String {
-        *self.to_vec().iter().map(|c| c.to_string())
+        self.to_vec()
+            .into_iter()
+            .map(|c| c.to_string())
+            .collect::<Vec<_>>()
+            .join("")
     }
     pub fn internal(&self) -> InternalWord {
         (*self).clone().0
@@ -63,10 +67,6 @@ impl Word {
             })
             .collect::<Vec<Bit>>();
         Ok(Word::convert_vec_to_word(bits))
-    }
-
-    pub fn _to_str(&self) -> String {
-        self.to_vec().iter().map(|c| c.))
     }
     pub fn _from_str(line: &String) -> Word {
         let bits = line
@@ -361,7 +361,7 @@ mod tests {
         match Word::from_str(&mstr) {
             Ok(v) => panic!(format!(
                 "This test should fail on : {}. : {}",
-                v.to_vec(),
+                v.to_string(),
                 mstr
             )),
             Err(err) => {
