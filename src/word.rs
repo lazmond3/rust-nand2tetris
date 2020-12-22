@@ -39,7 +39,7 @@ impl Word {
             .peekable()
             .peek()
         {
-            Some(c) => panic!(format!("cannot convert Word::from_str: {}", c)),
+            Some(c) => return Err(format!("cannot convert Word::from_str: {}", c)),
             None => {}
         }
 
