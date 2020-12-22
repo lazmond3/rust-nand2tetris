@@ -73,6 +73,12 @@ impl Ram {
         }
     }
 
+    pub fn new_from_loaded_file(file_name: &str) -> Self {
+        let mut ram: Self = Default::default();
+        ram.load(file_name);
+        ram
+    }
+
     pub fn from_vec_word(a: Vec<Word>) -> Self {
         if a.len() != RAM_WORDS_NUM {
             panic!(format!(
@@ -163,5 +169,27 @@ mod tests {
 
         test_ram.load("rom_data.txt");
         assert_eq!(test_ram, answer_ram);
+    }
+
+    #[test]
+    fn load_new() {
+        let mut answer_ram: Ram = Default::default();
+        let v = vec![
+            Word::_from_str(&String::from("1000110101011000")),
+            Word::_from_str(&String::from("1011100001101111")),
+            Word::_from_str(&String::from("0010100111011110")),
+            Word::_from_str(&String::from("0011011001011111")),
+            Word::_from_str(&String::from("0001011011110010")),
+            Word::_from_str(&String::from("0100010110100111")),
+            Word::_from_str(&String::from("0110110101010110")),
+            Word::_from_str(&String::from("1110001001000110")),
+            Word::_from_str(&String::from("1001000000101010")),
+            Word::_from_str(&String::from("0111110001100110")),
+        ];
+        v.iter().enumerate().for_each(|(i, &w)| {
+            answer_ram[i] = w;
+        });
+
+        assert_eq!(Ram::new_from_loaded_file("rom_data.txt"), answer_ram);
     }
 }
