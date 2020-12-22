@@ -37,6 +37,17 @@ impl Word {
             .collect::<Vec<Bit>>();
         Ok(Word::convert_vec_to_word(bits))
     }
+    pub fn _from_str(line: &String) -> Word {
+        let bits = line
+            .chars()
+            .map(|c| match c {
+                '0' => Bit::O,
+                '1' => Bit::I,
+                _ => panic!(format!("cannot convert to Bit from : {}", c)),
+            })
+            .collect::<Vec<Bit>>();
+        Word::convert_vec_to_word(bits)
+    }
 
     pub fn bit_position(index: usize) -> Word {
         if (BIT_WIDTH - 1) < index {
