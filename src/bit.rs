@@ -29,10 +29,7 @@ impl Default for Bit {
 
 impl fmt::Display for Bit {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let v = match *self {
-            Bit::O => "O",
-            Bit::I => "I",
-        };
+        let v = self.to_string();
         write!(f, "{}", v)
     }
 }
