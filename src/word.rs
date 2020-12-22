@@ -8,13 +8,24 @@ use std::ops::{Add, BitAnd};
 use std::ops::{Index, IndexMut};
 use std::str::Chars;
 use std::string::String;
+use std::fmt;
 
 pub type InternalWord = [Bit; BIT_WIDTH];
 
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Word(InternalWord);
 
+impl fmt::Display for Word {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let v = self.to_string();
+        write!(f, "{}", v)
+    }
+}
+
 impl Word {
+    pub fn to_string(&self) -> String {
+        *self.to_vec().iter().map(|c| c.to_string())
+    }
     pub fn internal(&self) -> InternalWord {
         (*self).clone().0
     }
@@ -52,6 +63,10 @@ impl Word {
             })
             .collect::<Vec<Bit>>();
         Ok(Word::convert_vec_to_word(bits))
+    }
+
+    pub fn _to_str(&self) -> String {
+        self.to_vec().iter().map(|c| c.))
     }
     pub fn _from_str(line: &String) -> Word {
         let bits = line
@@ -338,5 +353,20 @@ mod tests {
 
         let answer_vec = vec![O, O, O, I, O, I, O, I, I, I, I, I, O, O, I, O];
         assert_eq!(word, Word::convert_vec_to_word(answer_vec))
+    }
+
+    #[test]
+    fn from_string_failed() {
+        let mstr = String::from("hogehoge");
+        match Word::from_str(&mstr) {
+            Ok(v) => panic!(format!(
+                "This test should fail on : {}. : {}",
+                v.to_vec(),
+                mstr
+            )),
+            Err(err) => {
+                assert_eq!(format!("cannot convert Word::from_str: {}", 'h'), err);
+            }
+        }
     }
 }
