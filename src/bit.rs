@@ -1,5 +1,6 @@
 use std::default::Default;
 use std::fmt;
+use std::string::String;
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Bit {
     O,
@@ -15,8 +16,8 @@ impl Bit {
     }
     pub fn to_string(&self) -> String {
         match *self {
-            Bit::O => "O",
-            Bit::I => "I",
+            Bit::O => String::from("O"),
+            Bit::I => String::from("I"),
         }
     }
 }
