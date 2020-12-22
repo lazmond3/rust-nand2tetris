@@ -1,5 +1,6 @@
 use crate::constant::ROM_RAM_SIZE;
 use crate::ram::Ram;
+use crate::word::Word;
 use std::fs::File;
 use std::io::Read;
 use std::io::{BufRead, BufReader};
@@ -14,25 +15,18 @@ impl Rom {
         let ram_internal = [Ram::new(); ROM_RAM_SIZE];
         Rom { rams: ram_internal }
     }
-    pub fn load(&mut self, file_name: &str) {
-        let file = File::open(file_name.clone()).expect(&format!("Fail to open {}", file_name));
-        let mut reader = BufReader::new(file);
-        for line in reader.lines() {
-            println!("line: {} ", line.unwrap());
-        }
-    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    // load test
-    #[test]
-    fn for_rom_load() {
-        let mut a = Rom::new();
-        a.load("sample.txt")
-    }
+    // // load test
+    // #[test]
+    // fn for_rom_load() {
+    //     let mut a = Rom::new();
+    //     a.load("sample.txt")
+    // }
 
     // format test
     #[test]

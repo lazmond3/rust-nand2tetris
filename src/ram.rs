@@ -1,6 +1,9 @@
 use crate::constant::RAM_WORDS_NUM;
 use crate::word::Word;
 use std::convert::TryInto;
+use std::fs::File;
+use std::io::Read;
+use std::io::{BufRead, BufReader};
 use std::ops::{Index, IndexMut};
 
 pub type InternalRam = [Word; RAM_WORDS_NUM];
@@ -35,6 +38,23 @@ impl Ram {
         }
         v[pos] = a;
         Ram(v)
+    }
+
+    pub fn load(&mut self, file_name: &str) {
+        let file = File::open(file_name.clone()).expect(&format!("Fail to open {}", file_name));
+        let reader = BufReader::new(file);
+        let mut word_vec: Vec<Word> = vec![];
+        for line in reader.lines() {
+            let un = line.unwrap();
+            println!("line: {} ", un.clone());
+            // TODO result にする？
+            let word = Word::from_str(&un);
+            word_vec.push(word)
+        }
+        let mut rom_index = 0;
+        while !word_vec.is_empty() {
+            let w = word_vec.pop();
+        }
     }
 
     pub fn from_vec_word(a: Vec<Word>) -> Self {
