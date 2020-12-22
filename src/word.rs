@@ -1,5 +1,6 @@
 use crate::bit::Bit;
 use crate::constant::{BIT_WIDTH, MAX_VALUE};
+use std::char;
 use std::cmp::PartialEq;
 use std::convert::TryInto;
 use std::default::Default;
@@ -27,6 +28,21 @@ impl Word {
         (*self).internal().to_vec()
     }
     pub fn from_str(line: &String) -> Result<Word, String> {
+        match line
+            .clone()
+            .chars()
+            .filter(|c| match c {
+                '0' => false,
+                '1' => false,
+                _ => true,
+            })
+            .peekable()
+            .peek()
+        {
+            Some(c) => panic!(format!("cannot convert Word::from_str: {}", c)),
+            None => {}
+        }
+
         let bits = line
             .chars()
             .map(|c| match c {
