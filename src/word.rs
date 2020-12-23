@@ -112,6 +112,10 @@ impl Word {
         Word::new(*boxed_array)
     }
 
+    pub fn from_num(num: usize ) -> Word {
+        Word::num_to_bit(num)
+    }
+
     pub fn num_to_bit(num: usize) -> Word {
         if num >= MAX_VALUE {
             panic!(format!(

@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub mod alu;
 pub mod and;
 pub mod bit;
@@ -12,3 +13,4 @@ mod ownership_test;
 pub mod ram;
 pub mod rom;
 pub mod word;
+pub mod keyboard;
