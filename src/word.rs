@@ -58,7 +58,7 @@ impl Word {
             None => {}
         }
 
-        let bits = line
+        let mut bits = line
             .chars()
             .map(|c| match c {
                 '0' => Bit::O,
@@ -66,10 +66,11 @@ impl Word {
                 _ => panic!(format!("cannot convert to Bit from : {}", c)),
             })
             .collect::<Vec<Bit>>();
+        bits.reverse();
         Ok(Word::convert_vec_to_word(bits))
     }
     pub fn _from_str(line: &String) -> Word {
-        let bits = line
+        let mut bits = line
             .chars()
             .map(|c| match c {
                 '0' => Bit::O,
@@ -77,6 +78,8 @@ impl Word {
                 _ => panic!(format!("cannot convert to Bit from : {}", c)),
             })
             .collect::<Vec<Bit>>();
+
+        bits.reverse();
         Word::convert_vec_to_word(bits)
     }
 
@@ -112,7 +115,7 @@ impl Word {
         Word::new(*boxed_array)
     }
 
-    pub fn from_num(num: usize ) -> Word {
+    pub fn from_num(num: usize) -> Word {
         Word::num_to_bit(num)
     }
 
