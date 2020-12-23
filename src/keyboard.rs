@@ -15,16 +15,6 @@ impl Keyboard {
         }
     }
 
-    // pub fn input(&mut self, clock: &Clock) {
-    //     if clock.state() == Bit::I {
-    //         let stdin = io::stdin();
-    //         for line_result in stdin.lock().lines() {
-    //             let line = line_result.expect("line reading error");
-    //             // if let Some(word) = Keyboard::matching(line)
-    //         }
-    //     }
-    // }
-
     fn matching(line: String) -> Option<Word> {
         let b = line.as_bytes();
         match *b {
