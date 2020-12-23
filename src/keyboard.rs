@@ -172,13 +172,13 @@ mod tests {
     fn matching() {
         let mut line = "0";
         println!("line: {}", line.clone().as_bytes()[0]);
-        // let word = Keyboard::matching(String::from(line)).expect("wordsome");
+        let word = Keyboard::matching(String::from(line)).expect("wordsome");
         // println!("some word: {}", word);
-        // assert_eq!(word, Word::_from_str(&String::from("0000000000110000")));
-        assert_eq!(
-            Word::from_num(48),
-            Word::_from_str(&String::from("0000000000110000"))
-        );
+        assert_eq!(word, Word::_from_str(&String::from("0000000000110000")));
+        // assert_eq!(
+        //     Word::from_num(48),
+        //     Word::_from_str(&String::from("0000000000110000"))
+        // );
         // let line = "abc\ndef";
     }
 }
