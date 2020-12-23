@@ -358,7 +358,9 @@ mod tests {
             }
         };
 
-        let answer_vec = vec![O, O, O, I, O, I, O, I, I, I, I, I, O, O, I, O];
+        // let answer_vec = vec![O, O, O, I, O, I, O, I, I, I, I, I, O, O, I, O];
+        // 順番を逆転させる.
+        let answer_vec = vec![O, I, O, O, I, I, I, I, I, O, I, O, I, O, O, O];
         assert_eq!(word, Word::convert_vec_to_word(answer_vec))
     }
 
