@@ -39,6 +39,8 @@ impl Keyboard {
                     Some(Word::from_num(num.into()))
                 } else {
                     match num {
+                        // new line
+                        10 => Some(Word::new([O, O, O, O, O, O, O, O, I, O, O, O, O, O, O, O])),
                         // esc
                         27 => Some(Word::new([O, O, O, O, O, O, O, O, I, O, O, O, I, O, I, I])),
                         // home
@@ -171,14 +173,21 @@ mod tests {
     #[test]
     fn matching() {
         let mut line = "0";
-        println!("line: {}", line.clone().as_bytes()[0]);
-        let word = Keyboard::matching(String::from(line)).expect("wordsome");
-        // println!("some word: {}", word);
-        assert_eq!(word, Word::_from_str(&String::from("0000000000110000")));
-        // assert_eq!(
-        //     Word::from_num(48),
-        //     Word::_from_str(&String::from("0000000000110000"))
-        // );
-        // let line = "abc\ndef";
+        assert_eq!(
+            Keyboard::matching(String::from(line)).expect("0"),
+            Word::from_num(48)
+        );
+
+        line = "a";
+        assert_eq!(
+            Keyboard::matching(String::from(line)).expect("a"),
+            Word::from_num(97)
+        );
+
+        line = "newline";
+        assert_eq!(
+            Keyboard::matching(String::from(line)).expect("new line"),
+            Word::new([O, O, O, O, O, O, O, O, I, O, O, O, O, O, O, O])
+        );
     }
 }
