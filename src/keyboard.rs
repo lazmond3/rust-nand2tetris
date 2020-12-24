@@ -3,6 +3,7 @@ use crate::bit::Bit::{I, O};
 use crate::clock::Clock;
 use crate::word::Word;
 use std::io;
+use std::io::BufRead;
 
 pub struct Keyboard {
     word: Word,
@@ -12,6 +13,20 @@ impl Keyboard {
     pub fn new() -> Self {
         Keyboard {
             word: Word::new_empty(),
+        }
+    }
+
+    // pub fn input<R, W>(&mut self, mut reader: R, mut writer: W, clock: &Clock)
+    pub fn input<R, W>(&mut self, clock: &Clock) {
+        if clock.state() == Bit::I {
+            let stdin = io::stdin();
+            for line_result in stdin.lock().lines() {
+                let line = line_result.expect("line read in [input]");
+                if let Some(word) = Self::matching(line) {
+                    self.word = word;
+                    break;
+                }
+            }
         }
     }
 
