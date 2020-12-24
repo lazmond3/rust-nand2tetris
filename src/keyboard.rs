@@ -183,6 +183,44 @@ mod tests {
     use super::*;
 
     #[test]
+    fn input_0() {
+        let input = b"0";
+        let input_answer_line = std::str::from_utf8(input)
+            .expect("bytes to &str")
+            .to_owned();
+        let mut keyboard = Keyboard::new();
+        let mut clock = Clock::new();
+        if clock.state() == Bit::O {
+            clock.next();
+        }
+        keyboard.input(&input[..], &clock);
+        assert_eq!(
+            keyboard.word,
+            Keyboard::matching(String::from(input_answer_line))
+                .expect("conversion matching keyboard")
+        );
+    }
+
+    #[test]
+    fn input_newline() {
+        let input = b"newline";
+        let input_answer_line = std::str::from_utf8(input)
+            .expect("bytes to &str")
+            .to_owned();
+        let mut keyboard = Keyboard::new();
+        let mut clock = Clock::new();
+        if clock.state() == Bit::O {
+            clock.next();
+        }
+        keyboard.input(&input[..], &clock);
+        assert_eq!(
+            keyboard.word,
+            Keyboard::matching(String::from(input_answer_line))
+                .expect("conversion matching keyboard")
+        );
+    }
+
+    #[test]
     fn matching() {
         let mut line = "0";
         assert_eq!(
